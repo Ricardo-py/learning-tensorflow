@@ -1,0 +1,102 @@
+import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+v_1 = tf.constant([1,2,3,4])
+
+v_2 = tf.constant([2,1,5,3])
+
+rand_t = tf.random_uniform([50,50],0,10,seed=0)
+t_a = tf.Variable(rand_t)
+t_b = tf.Variable(rand_t)
+
+
+#axis=0  ---->行堆叠
+#axis=-1 ---->列堆叠
+v_stack = tf.stack([v_1,v_2],axis=-1)
+
+v_3 = tf.zeros([2,3],tf.int32)
+v_4 = tf.ones([2,3],tf.int32)
+
+range_t = tf.linspace(1.0,10.0,10)
+
+v_add = tf.add(v_1,v_2)
+
+t_random = tf.random.normal([2,3],mean=2.0,stddev=4,seed=5)
+t_randomsort = tf.random.shuffle(t_random)
+weights = tf.Variable(tf.random.normal([10,10],stddev=2))
+
+
+t_stack = tf.random.shuffle(v_stack)
+
+x = tf.compat.v1.placeholder("float")
+
+y = 2 * x
+
+m_1 = tf.random_uniform([3,3],10)
+tmp_data = tf.Variable(m_1)
+
+x_data = tmp_data[:,1]
+#x_data = tf.concat(tmp_data,-1);
+
+
+
+#tf.global_variables_initializer()
+
+
+with tf.compat.v1.Session() as sess:
+    #sess.run(tmp_data.initializer)
+    sess.run(tf.compat.v1.global_variables_initializer())
+    print(tmp_data.shape)
+    x_data = sess.run(x_data)
+    #print(sess.run(x_data))
+    print(sess.run(y,feed_dict = {x:x_data}))
+    #print(sess.run(tmp_data))
+    #print(sess.run(tmp_data))
+    #print(sess.run(y,feed_dict={x:x_tmp}))
+
+
+
+#data = tf.random.uniform([4,5],10)
+#tmp = tf.Variable(data)
+#x = tf.compat.v1.placeholder("float")
+#y = 2 * x
+
+#data = tf.random.uniform([4,5],10)
+#with tf.compat.v1.Session() as sess:
+#    x_data = sess.run(data)
+#    print(sess.run(y,feed_dict={x:x_data}))
+
+
+#sess = tf.compat.v1.InteractiveSession()
+#sess.run(tf.compat.v1.global_variables_initializer())
+#print(weights.eval())
+#with tf.compat.v1.InteractiveSession() as sess:
+#    sess.run(tf.compat.v1.global_variables_initializer())
+#    print(weights)
+#intial_op = tf.global_variables_initializer()
+
+
+
+#with tf.compat.v1.Session() as sess:
+    #sess.run(weights.initializer)
+#    sess.run(tmp.initializer)
+#    print("tmp:")
+#    print(sess.run(tmp))
+    #print(sess.run(weights))
+#    print("data")
+#    print(sess.run(data))
+
+#with tf.InteractiveSession() as sess:
+    # print(sess.run(v_1))
+    # print(sess.run(v_2))
+    # print(sess.run(v_add))
+    # print(sess.run(v_3))
+    # print(sess.run(v_4))
+    # print(sess.run(range_t))
+    # print(sess.run(t_random))
+    # print(sess.run(t_randomsort))
+    #print(sess.run(v_stack))
+    #print(sess.run(t_stack))
+
+#sess.close()
